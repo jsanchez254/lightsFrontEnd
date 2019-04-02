@@ -6,6 +6,9 @@
     color: white;
     overflow-x: none;
     overflow-y: scroll;
+    padding:20px;
+    font-family: monospace;
+    font-size: 18px;
 }
 
 .editor{
