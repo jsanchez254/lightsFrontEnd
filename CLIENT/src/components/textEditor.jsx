@@ -79,8 +79,9 @@ class textEditor extends Component {
                         </Grid>
                     </div>
                 
-                    <div className = "console" type ="text" name = "comment" 
-                    placeholder={this.state.output}/>
+                    <div className = "console" type ="text" name = "comment">
+                        {this.state.output}
+                    </div>
                 </div>
             </React.Fragment>
           );
