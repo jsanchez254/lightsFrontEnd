@@ -19,7 +19,7 @@ class App extends Component {
      <React.Fragment>
        <Grid columns= "equal">
         <Grid.Column width = {8}>
-          <TextEditor ip = {ip}/>
+          <TextEditor ip = {this.state.ip}/>
         </Grid.Column>
         <Grid.Column width = {8}>
           <CharacterText/>
