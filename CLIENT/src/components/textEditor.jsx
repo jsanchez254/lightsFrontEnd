@@ -79,8 +79,8 @@ class textEditor extends Component {
                         </Grid>
                     </div>
                 
-                    <textarea readOnly className = "console" type ="text" name = "comment">
-                        {this.state.output}
+                    <textarea readOnly className = "console" type ="text" name = "comment" value={this.state.output}>
+                        
                     </textarea>
                 </div>
             </React.Fragment>
