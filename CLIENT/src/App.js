@@ -11,12 +11,15 @@ import {Grid} from "semantic-ui-react";
 import "./assets/css/textEditor.css";
 
 class App extends Component {
+  state = {
+    ip : "http://10.0.1.3:5000/"
+  }
   render() {
     return (
      <React.Fragment>
        <Grid columns= "equal">
         <Grid.Column width = {8}>
-          <TextEditor/>
+          <TextEditor ip = {ip}/>
         </Grid.Column>
         <Grid.Column width = {8}>
           <CharacterText/>

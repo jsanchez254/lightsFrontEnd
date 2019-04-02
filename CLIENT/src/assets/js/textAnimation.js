@@ -23,7 +23,16 @@ Now it is the next thing...
 <output>
 AA: Whatever
 </output>
-</bubble>`
+</bubble>
+<bubble>
+<message>
+Now it is the next thing...ygugyygtgttytf
+</message>
+<output>
+AA: Whatever
+</output>
+</bubble>
+`
 
 //HERE WILL BE FUNCTION THAT WILL PARSE STRING IN THER CORRESPONDING SECTIONS
 //READ MESSAGE FROM READ FILE TEXT

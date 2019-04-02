@@ -27,11 +27,11 @@ class textEditor extends Component {
 
         }
         console.log("HERE ",code.input);
-        axios.post("http://10.0.1.9:5000/run", {code})
+        axios.post( this.props.ip + "run", {code})
         .then(res =>{
             console.log(res.data)
             //UPDATES WHAT WILL BE DISPLAY OJN CONSOLE
-            axios.get("http://10.0.1.9:5000/output")
+            axios.get( this.props.ip + "output")
             .then(res => {
                 const output = res.data;
                 console.log("OUTPUT: ", res.data)
@@ -41,7 +41,7 @@ class textEditor extends Component {
     }
 
     handleKill = () =>{
-        axios.get("http://10.0.1.9:5000/kill")
+        axios.get( this.props.ip + "kill")
         .then(res=>{
             console.log("KILLED PROGRAM");
         })
