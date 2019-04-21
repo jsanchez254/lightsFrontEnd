@@ -12,7 +12,7 @@ import "./assets/css/textEditor.css";
 
 class App extends Component {
   state = {
-    ip : "http://10.0.1.3:5000/"
+    ip : "http://127.0.0.1:5000/"
   }
   render() {
     return (

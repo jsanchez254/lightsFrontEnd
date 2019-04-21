@@ -22,6 +22,12 @@ noImports = None
 app = Flask(__name__)
 CORS(app)
 
+#NOTE test
+@app.route("/testOutput")
+def test():
+    return "works"
+###########
+
 # This is for killing a process that we have spawned
 @app.route("/kill")
 def kill():
@@ -76,7 +82,7 @@ def runcode():
             noImports = 1
         # Start up the process in a new thread
         else:
-            code = "from light import *\n" + code
+            # code = "from light import *\n" + code
             t = Thread(target=spawn, args=(code, userInput,))
             t.start()
 
@@ -118,4 +124,5 @@ def getOutput():
 
 
 if __name__ == '__main__':
-        app.run(host="0.0.0.0", port=5000)
+        # app.run(host="0.0.0.0", port=5000)
+        app.run(debug = True)

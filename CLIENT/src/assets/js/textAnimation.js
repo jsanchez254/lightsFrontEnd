@@ -1,36 +1,37 @@
-var words = `<bubble>
-<message>
-Let's turn on the red light for 1 second. We can refer to each of the lights by name (red, yellow, green), and we can instruct each of them to turn on or off. We do this by adding the command to the name, like this:
+var words = 
+`<bubble>
+    <message>
+    Let's turn on the red light for 1 second. We can refer to each of the lights by name (red, yellow, green), and we can instruct each of them to turn on or off. We do this by adding the command to the name, like this:
 
-<code>red.on()</code>
+        <code>red.on()</code>
 
-After this, we need to tell the computer to wait for a certain period of time, so that the light stays on for that period. To do this, just type:
+        After this, we need to tell the computer to wait for a certain period of time, so that the light stays on for that period. To do this, just type:
 
-<code>wait(5)</code>
+        <code>wait(5)</code>
 
-Now, turn on the red light for 5 seconds.
-</message>
-<output>
-AA: red turning on
-AA: waiting 5 seconds
-</output>
+        Now, turn on the red light for 5 seconds.
+    </message>
+    <output>
+        AA: red turning on
+        AA: waiting 5 seconds
+    </output>
 </bubble>
 
 <bubble>
-<message>
-Now it is the next thing...
-</message>
-<output>
-AA: Whatever
-</output>
+    <message>
+        Now it is the next thing...
+    </message>
+    <output>
+        AA: Whatever
+    </output>
 </bubble>
 <bubble>
-<message>
-Now it is the next thing...ygugyygtgttytf
-</message>
-<output>
-AA: Whatever
-</output>
+    <message>
+        Now it is the next thing...ygugyygtgttytf
+    </message>
+    <output>
+        AA: Whatever
+    </output>
 </bubble>
 `
 
@@ -50,18 +51,13 @@ while((completeScript) < words.length){
     storeBubbles.push(newBubbleSlice.substring((startScript + 8), (endBubble - 1)));
     startScript = endBubble + 9;
     completeScript += startScript;
-    console.log(startScript);
 }
-    // newBubbleSlice = words.slice(startScript);
-    // console.log("NEW BUBBLE: ", newBubbleSlice);
-console.log("BUBBLE ARRAY: ", storeBubbles);
-
-console.log(message);
 
 var bubbleIndex = 0; //used to move between bubbles
 var indexWord = 0; // used to keep track of message and code element for each bubble
 var textAnimation;
-var textFinished = false;
+var textFinished = false; //used to keep interval of animation going until message tag ends 
+
 //CODE TAG HELPERS
 var startCode = false;
 var createLineCode = true;
@@ -81,23 +77,21 @@ export function repeatAgain(res){
     }
     else if(res === "NO"){
         text[0].innerHTML = "OKAY, GOOD LUCK!!!";
-        document.getElementById("repeatContent").style.display = "none";
+        // document.getElementById("repeatContent").style.display = "none";
         if((bubbleIndex + 1) < storeBubbles.length)
             bubbleIndex += 1;
-        textFinished = false; //TEMPORARY DEMO PURPOSE
-        startBubble = true;
-        text[0].innerHTML = "";
+        textFinished = true; //TEMPORARY DEMO PURPOSE
+        startBubble = false;
         console.log(message);
     }
 }
 
 //HANDLE WHEN NEXT BUBBLE WILL BE FETCHED
-var startBubble = true;
-var message = "";
-var output = "";
+var message = "";     //contains message tag with code tag inside to be displayed on animation
+var output = "";      //contains output tag text to check with backEnd
 function startNewBubble(){
-    let startIndex = storeBubbles[bubbleIndex].search("<message>") + 10;
-    let endIndex = storeBubbles[bubbleIndex].search("</message>");
+    let startIndex = storeBubbles[bubbleIndex].search("<message>") + 10;    //start index of message text
+    let endIndex = storeBubbles[bubbleIndex].search("</message>");          //end index of message text
     while(startIndex < endIndex){
         message += storeBubbles[bubbleIndex][startIndex];
         startIndex +=1;
@@ -109,71 +103,80 @@ function startNewBubble(){
         output += storeBubbles[bubbleIndex][startOutput];
         startOutput +=1;
     }
-    console.log("OUTPUT ", output);
 }
 
 //called everytime we click on cat
+var forceClear = false;
+var startBubble = true;
 export function sendText(){
     if(startBubble){
         startNewBubble();
         startBubble = false;
     }
+    else{
+        text[0].innerHTML = "COME ON, YOU GOT THIS!!!";
+    }
     if(!textFinished === true){
-        console.log("FETCHED??? ",message)
         text[0].style.height = "none";
         text[0].innerHTML = "";
+        forceClear = false;
         textAnimation = setInterval(display, 5);
     }
 }
 
 //display words in animation format
 function display(){
-    if(indexWord < message.length){
-        let temp = indexWord;
-        if((message[indexWord] === '<' && message[indexWord + 1] === 'c' 
-        && message[indexWord + 2] === 'o') || startCode){
-            startCode = true;
-            if(createLineCode){
-                text[0].innerHTML += "<br/>";
-                createLineCode = false;
-                //cut message to get next coding tag
-                newCode = message.slice(indexWord);
-                endCode = newCode.search("</code>") + indexWord;
-                indexWord += 5;
-            }
-            else{
-                let ready = false;
-                if(indexWord === (endCode - 1)){
-                    console.log(indexWord, " > ", endCode);
-                    indexWord += 8;
+    if(forceClear === false){
+        if(indexWord < message.length){
+            let temp = indexWord;
+            if((message[indexWord] === '<' && message[indexWord + 1] === 'c' 
+            && message[indexWord + 2] === 'o') || startCode){
+                startCode = true;
+                if(createLineCode){
                     text[0].innerHTML += "<br/>";
-                    createLineCode  = true;
-                    startCode = false;
-                    ready = true;
-                }
-                if(ready){
-                    text[0].innerHTML += "<pre class = 'codeWritten'>" + actualCode + "</pre>";
-                    text[0].innerHTML += "<br/>";
-                    actualCode = "";
+                    createLineCode = false;
+                    //cut message to get next coding tag
+                    newCode = message.slice(indexWord);
+                    endCode = newCode.search("</code>") + indexWord;
+                    indexWord += 5;
                 }
                 else{
-                    indexWord +=1;
-                    actualCode += message[indexWord];
+                    let ready = false;
+                    if(indexWord === (endCode - 1)){
+                        console.log(indexWord, " > ", endCode);
+                        indexWord += 8;
+                        text[0].innerHTML += "<br/>";
+                        createLineCode  = true;
+                        startCode = false;
+                        ready = true;
+                    }
+                    if(ready){
+                        text[0].innerHTML += "<pre class = 'codeWritten'>" + actualCode + "</pre>";
+                        text[0].innerHTML += "<br/>";
+                        actualCode = "";
+                    }
+                    else{
+                        indexWord +=1;
+                        actualCode += message[indexWord];
+                    }
                 }
             }
-        }
-        else{
-            startCode = false;
-            text[0].innerHTML += message[indexWord];
-            indexWord +=1;
-            console.log(text[0].offsetHeight);
-        }
-        if(text[0].offsetHeight > 200 && message[temp] === ' '){
-            clearInterval(textAnimation);
-        }
-        if(indexWord === message.length){
-            textFinished = true;
-            document.getElementById("repeatContent").style.display = "block";
+            else{
+                startCode = false;
+                text[0].innerHTML += message[indexWord];
+                indexWord +=1;
+                console.log(text[0].offsetHeight);
+            }
+            if(text[0].offsetHeight > 200 && message[temp] === ' '){
+                console.log("SUPPOSED TO CLEAR HERE");
+                forceClear = true;
+                clearInterval(textAnimation);
+            }
+            //end animation when index reaches lenght of message
+            if(indexWord === message.length){
+                textFinished = true;
+                document.getElementById("repeatContent").style.display = "block";
+            }
         }
     }
 }
