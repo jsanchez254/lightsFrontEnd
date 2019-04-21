@@ -82,6 +82,7 @@ export function repeatAgain(res){
             bubbleIndex += 1;
         textFinished = true; //TEMPORARY DEMO PURPOSE
         startBubble = false;
+        document.getElementById("repeatContent").style.display = "none";
         console.log(message);
     }
 }
@@ -106,7 +107,7 @@ function startNewBubble(){
 }
 
 //called everytime we click on cat
-var forceClear = false;
+var forceClear = false;  //helper boolean to stop animation from going before interval is cleared
 var startBubble = true;
 export function sendText(){
     if(startBubble){
@@ -114,7 +115,7 @@ export function sendText(){
         startBubble = false;
     }
     else{
-        text[0].innerHTML = "COME ON, YOU GOT THIS!!!";
+        text[0].innerHTML = randomText();
     }
     if(!textFinished === true){
         text[0].style.height = "none";
@@ -179,6 +180,13 @@ function display(){
             }
         }
     }
+}
+
+
+var randomText1 = ["COME ON, YOU GOT THIS!!","KEEP ON TRYING...", "PERFORM ASSIGNMENT TO ADVANCE", "GOOD LUCK!!", "MEOW!"];
+function randomText(){
+    let rand = Math.floor(Math.random() * 5);
+    return randomText1[rand];
 }
 
 
