@@ -10,10 +10,12 @@ import {Button, Icon, Grid} from "semantic-ui-react";
 
 //IMPORT JS
 import {updateValue, returnCode, userInput} from "../assets/js/popOutText";
+import {getOutput, checkSucess} from "../assets/js/textAnimation";
 
 class textEditor extends Component {
     state = {
-        output: ""
+        output: "",
+        outputPass: ""
     }
     
     handleChange = (code) =>{
@@ -29,12 +31,19 @@ class textEditor extends Component {
         console.log("HERE ",code.input);
         axios.post( this.props.ip + "run", {code})
         .then(res =>{
-            console.log(res.data)
-            //UPDATES WHAT WILL BE DISPLAY OJN CONSOLE
-            axios.get( this.props.ip + "output")
+            axios.get( this.props.ip + "testOutput")   //output
             .then(res => {
                 const output = res.data;
+                let expectedOutPut = getOutput();
+                console.log("EXPECTED OUTPUT: ", expectedOutPut);
                 console.log("OUTPUT: ", res.data)
+                console.log(expectedOutPut.length, "===", output.length);        
+                if(expectedOutPut === output){
+                    checkSucess(true);
+                }
+                else{
+                    checkSucess(false);
+                }
                 this.setState({output});
             })
         })

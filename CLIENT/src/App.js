@@ -9,6 +9,7 @@ import {Grid} from "semantic-ui-react";
 
 //IMPORT CSS
 import "./assets/css/textEditor.css";
+import "./assets/css/character.css";
 
 class App extends Component {
   state = {

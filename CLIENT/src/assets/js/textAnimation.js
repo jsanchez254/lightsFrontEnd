@@ -1,3 +1,5 @@
+// AA: red turning on
+// AA: waiting 5 seconds
 var words = 
 `<bubble>
     <message>
@@ -11,10 +13,7 @@ var words =
 
         Now, turn on the red light for 5 seconds.
     </message>
-    <output>
-        AA: red turning on
-        AA: waiting 5 seconds
-    </output>
+<output>works</output>
 </bubble>
 
 <bubble>
@@ -38,7 +37,7 @@ var words =
 //HERE WILL BE FUNCTION THAT WILL PARSE STRING IN THER CORRESPONDING SECTIONS
 //READ MESSAGE FROM READ FILE TEXT
 
-// GET BUBBLE ELEMENTS
+//GET BUBBLE ELEMENTS
 var startScript = 0;
 var storeBubbles = [];
 let endBubble;
@@ -77,9 +76,6 @@ export function repeatAgain(res){
     }
     else if(res === "NO"){
         text[0].innerHTML = "OKAY, GOOD LUCK!!!";
-        // document.getElementById("repeatContent").style.display = "none";
-        if((bubbleIndex + 1) < storeBubbles.length)
-            bubbleIndex += 1;
         textFinished = true; //TEMPORARY DEMO PURPOSE
         startBubble = false;
         document.getElementById("repeatContent").style.display = "none";
@@ -87,10 +83,26 @@ export function repeatAgain(res){
     }
 }
 
+//function that displays either success or not if the frontEnd and backEnd outputs match
+export function checkSucess(check){
+    if(check){
+        clearInterval(textAnimation);
+        text[0].innerHTML = "SUCCESS!!!";
+        textFinished = false;
+        startNewBubble = true;
+        bubbleIndex += 1;
+        message = "";
+    }
+    else{
+        text[0].innerHTML = "INCORRECT...PLEASE TRY AGAIN...";
+    }
+}
+
 //HANDLE WHEN NEXT BUBBLE WILL BE FETCHED
 var message = "";     //contains message tag with code tag inside to be displayed on animation
 var output = "";      //contains output tag text to check with backEnd
 function startNewBubble(){
+    console.log("BUBBLES: ", storeBubbles[bubbleIndex]);
     let startIndex = storeBubbles[bubbleIndex].search("<message>") + 10;    //start index of message text
     let endIndex = storeBubbles[bubbleIndex].search("</message>");          //end index of message text
     while(startIndex < endIndex){
@@ -106,11 +118,17 @@ function startNewBubble(){
     }
 }
 
+//GET OUTPUT
+export function getOutput(){
+    return output;
+}
+
 //called everytime we click on cat
 var forceClear = false;  //helper boolean to stop animation from going before interval is cleared
 var startBubble = true;
 export function sendText(){
     if(startBubble){
+        console.log("HERE bibs");
         startNewBubble();
         startBubble = false;
     }
@@ -181,7 +199,6 @@ function display(){
         }
     }
 }
-
 
 var randomText1 = ["COME ON, YOU GOT THIS!!","KEEP ON TRYING...", "PERFORM ASSIGNMENT TO ADVANCE", "GOOD LUCK!!", "MEOW!"];
 function randomText(){
