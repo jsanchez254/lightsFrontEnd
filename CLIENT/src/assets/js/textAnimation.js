@@ -20,6 +20,9 @@ var words =
 <bubble>
     <message>
         Now it is the next thing...
+        A hedgehog is any of the spiny mammals of the subfamily Erinaceinae, in the eulipotyphlan family Erinaceidae. There are seventeen species of hedgehog in five genera found through parts of Europe, Asia, and Africa, and in New Zealand by introduction. There are no hedgehogs native to Australia and no living species native to the Americas (the extinct genus Amphechinus was once present in North America).
+
+Hedgehogs share distant ancestry with shrews (family Soricidae), with gymnures possibly being the intermediate link, and they have changed little over the last 15 million years.[2] Like many of the first mammals, they have adapted to a nocturnal way of life.[3] Their spiny protection resembles that of the unrelated porcupines, which are rodents, and echidnas, a type of monotreme.
     </message>
     <output>
         AA: Whatever
@@ -136,6 +139,7 @@ export function getOutput(){
 //called everytime we click on cat
 var forceClear = false;  //helper boolean to stop animation from going before interval is cleared
 var startBubble = true;
+var startCount = 0;
 export function sendText(){
     if(startBubble){
         startNewBubble();
@@ -150,6 +154,7 @@ export function sendText(){
         text[0].style.color = "black";
         forceClear = false;
         textAnimation = setInterval(display, 5);
+        startCount = 0; //will be used to make sure line is used up
     }
 }
 
@@ -196,22 +201,28 @@ function display(){
                 indexWord +=1;
                 console.log(text[0].offsetHeight);
             }
-            if(text[0].offsetHeight > 200 && message[temp] === ' '){
-                text[0].append(arrow);
-                forceClear = true;
-                clearInterval(textAnimation);
+            if(text[0].offsetHeight > 200){
+                if(startCount > 40 && message[indexWord] === ' '){
+                    text[0].innerHTML += "...";
+                    text[0].append(arrow);
+                    forceClear = true;
+                    clearInterval(textAnimation);
+                }
+                console.log("START COUNT: ", startCount);
+                startCount+=1;
             }
             //end animation when index reaches lenght of message
             if(indexWord === message.length){
                 textFinished = true;
-                document.getElementById("repeatContent").style.display = "block";
+                document.getElementById("repeatContent").style.display = "block";                
                 text[0].append(arrow);
             }
         }
     }
 }
 
-var randomText1 = ["COME ON, YOU GOT THIS!!","KEEP ON TRYING...", "PERFORM ASSIGNMENT TO ADVANCE", "GOOD LUCK!!", "MEOW!"];
+var randomText1 = ["COME ON, YOU GOT THIS!!","KEEP ON TRYING...", 
+                "PERFORM ASSIGNMENT TO ADVANCE", "GOOD LUCK!!", "MEOW!"];
 function randomText(){
     let rand = Math.floor(Math.random() * 5);
     text[0].style.color = "black";

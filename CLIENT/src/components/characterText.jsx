@@ -14,12 +14,12 @@ class characterText extends Component {
         return (
             <React.Fragment>
                 <div className = "characterText">
-                <div className = "popup" id = "textPosition">
-                    <div className = "popuptext" id = "myPopup">
-                        HELLO THERE!!!
+                    <div className = "popup" id = "textPosition">
+                        <div className = "popuptext" id = "myPopup">
+                            HELLO THERE!!!
+                        </div>
+                        <br/>
                     </div>
-                    <br/>
-                </div>
                     <center><img alt = "" onClick = {()=> {sendText()}} className = "characterTalks" src = {JIJI}/></center>
                     <div id = "repeatContent">
                         <center>

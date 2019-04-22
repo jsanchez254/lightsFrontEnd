@@ -93,7 +93,7 @@
     padding: 8px 0;
     position: absolute;
     z-index: 1;
-    bottom: 125%;
+    bottom: 120%;
     left: 50%;
     margin-left: -250px;
     padding:20px;
@@ -131,7 +131,7 @@
   }
 
   #textPosition{
-     top: 250px;
+     top: 270px;
      left: 50%;
   }
 
