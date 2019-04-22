@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //IMPORT IMAGE
 import JIJI from "../assets/img/jiji.jpg";
 import yoshi from "../assets/img/yoshi.gif";
-
+//test
 import {Button} from "semantic-ui-react";
 
 //IMPORT JS
