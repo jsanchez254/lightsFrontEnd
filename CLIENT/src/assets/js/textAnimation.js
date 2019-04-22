@@ -89,9 +89,11 @@ export function checkSucess(check){
         clearInterval(textAnimation);
         text[0].innerHTML = "SUCCESS!!!";
         textFinished = false;
-        startNewBubble = true;
+        startBubble = true;
         bubbleIndex += 1;
         message = "";
+        forceClear = false;
+        indexWord = 0;
     }
     else{
         text[0].innerHTML = "INCORRECT...PLEASE TRY AGAIN...";
@@ -102,7 +104,7 @@ export function checkSucess(check){
 var message = "";     //contains message tag with code tag inside to be displayed on animation
 var output = "";      //contains output tag text to check with backEnd
 function startNewBubble(){
-    console.log("BUBBLES: ", storeBubbles[bubbleIndex]);
+    console.log("INDEX 1111: ", storeBubbles[bubbleIndex]);
     let startIndex = storeBubbles[bubbleIndex].search("<message>") + 10;    //start index of message text
     let endIndex = storeBubbles[bubbleIndex].search("</message>");          //end index of message text
     while(startIndex < endIndex){
@@ -116,6 +118,7 @@ function startNewBubble(){
         output += storeBubbles[bubbleIndex][startOutput];
         startOutput +=1;
     }
+    console.log("MESSAGE: ", forceClear);
 }
 
 //GET OUTPUT
@@ -128,7 +131,7 @@ var forceClear = false;  //helper boolean to stop animation from going before in
 var startBubble = true;
 export function sendText(){
     if(startBubble){
-        console.log("HERE bibs");
+        console.log("AQUIIIIIII!111");
         startNewBubble();
         startBubble = false;
     }
@@ -146,6 +149,7 @@ export function sendText(){
 //display words in animation format
 function display(){
     if(forceClear === false){
+        console.log("GO HERE: ", message);
         if(indexWord < message.length){
             let temp = indexWord;
             if((message[indexWord] === '<' && message[indexWord + 1] === 'c' 
