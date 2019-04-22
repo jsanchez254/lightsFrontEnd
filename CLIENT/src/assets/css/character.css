@@ -2,3 +2,9 @@
     color: rgb(40, 185, 40);
     font-weight: bold;
 }
+
+#nextText{
+    width: 35px;
+    height: 50px;
+    top: 1px;
+}

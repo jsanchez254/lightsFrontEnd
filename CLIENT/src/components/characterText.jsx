@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //IMPORT IMAGE
 import JIJI from "../assets/img/jiji.jpg";
+import yoshi from "../assets/img/yoshi.gif";
 
 import {Button} from "semantic-ui-react";
 
@@ -14,7 +15,10 @@ class characterText extends Component {
             <React.Fragment>
                 <div className = "characterText">
                 <div className = "popup" id = "textPosition">
-                    <div className = "popuptext" id = "myPopup">HELLO THERE!!!</div><br/>
+                    <div className = "popuptext" id = "myPopup">
+                        HELLO THERE!!!
+                    </div>
+                    <br/>
                 </div>
                     <center><img alt = "" onClick = {()=> {sendText()}} className = "characterTalks" src = {JIJI}/></center>
                     <div id = "repeatContent">

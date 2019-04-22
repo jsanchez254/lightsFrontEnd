@@ -1,5 +1,6 @@
 // AA: red turning on
 // AA: waiting 5 seconds
+import yoshi from "../img/yoshi.gif";
 var words = 
 `<bubble>
     <message>
@@ -33,6 +34,10 @@ var words =
     </output>
 </bubble>
 `
+//create img element 
+var arrow = document.createElement("img");
+arrow.src = yoshi;
+arrow.id = "nextText";
 
 //HERE WILL BE FUNCTION THAT WILL PARSE STRING IN THER CORRESPONDING SECTIONS
 //READ MESSAGE FROM READ FILE TEXT
@@ -88,6 +93,7 @@ export function checkSucess(check){
     if(check){
         clearInterval(textAnimation);
         text[0].innerHTML = "SUCCESS!!!";
+        text[0].style.color = "rgb(40, 185, 40)";
         textFinished = false;
         startBubble = true;
         bubbleIndex += 1;
@@ -97,6 +103,7 @@ export function checkSucess(check){
     }
     else{
         text[0].innerHTML = "INCORRECT...PLEASE TRY AGAIN...";
+        text[0].style.color = "red";
     }
 }
 
@@ -131,7 +138,6 @@ var forceClear = false;  //helper boolean to stop animation from going before in
 var startBubble = true;
 export function sendText(){
     if(startBubble){
-        console.log("AQUIIIIIII!111");
         startNewBubble();
         startBubble = false;
     }
@@ -141,6 +147,7 @@ export function sendText(){
     if(!textFinished === true){
         text[0].style.height = "none";
         text[0].innerHTML = "";
+        text[0].style.color = "black";
         forceClear = false;
         textAnimation = setInterval(display, 5);
     }
@@ -149,7 +156,6 @@ export function sendText(){
 //display words in animation format
 function display(){
     if(forceClear === false){
-        console.log("GO HERE: ", message);
         if(indexWord < message.length){
             let temp = indexWord;
             if((message[indexWord] === '<' && message[indexWord + 1] === 'c' 
@@ -191,7 +197,7 @@ function display(){
                 console.log(text[0].offsetHeight);
             }
             if(text[0].offsetHeight > 200 && message[temp] === ' '){
-                console.log("SUPPOSED TO CLEAR HERE");
+                text[0].append(arrow);
                 forceClear = true;
                 clearInterval(textAnimation);
             }
@@ -199,6 +205,7 @@ function display(){
             if(indexWord === message.length){
                 textFinished = true;
                 document.getElementById("repeatContent").style.display = "block";
+                text[0].append(arrow);
             }
         }
     }
@@ -207,6 +214,7 @@ function display(){
 var randomText1 = ["COME ON, YOU GOT THIS!!","KEEP ON TRYING...", "PERFORM ASSIGNMENT TO ADVANCE", "GOOD LUCK!!", "MEOW!"];
 function randomText(){
     let rand = Math.floor(Math.random() * 5);
+    text[0].style.color = "black";
     return randomText1[rand];
 }
 
