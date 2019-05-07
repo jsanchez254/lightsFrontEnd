@@ -22,26 +22,29 @@ var words =
 
         Now, turn on the red light for 5 seconds.
     </message>
-<output>works</output>
+<output>
+AA: red turning on
+AA: waiting 1 seconds
+</output>
 </bubble>
 
 <bubble>
     <message>
-        Now it is the next thing...
-        A hedgehog is any of the spiny mammals of the subfamily Erinaceinae, in the eulipotyphlan family Erinaceidae. There are seventeen species of hedgehog in five genera found through parts of Europe, Asia, and Africa, and in New Zealand by introduction. There are no hedgehogs native to Australia and no living species native to the Americas (the extinct genus Amphechinus was once present in North America).
-
-Hedgehogs share distant ancestry with shrews (family Soricidae), with gymnures possibly being the intermediate link, and they have changed little over the last 15 million years.[2] Like many of the first mammals, they have adapted to a nocturnal way of life.[3] Their spiny protection resembles that of the unrelated porcupines, which are rodents, and echidnas, a type of monotreme.
+        TEST 2 green
     </message>
     <output>
-        AA: Whatever
+    AA: green turning on
+    AA: waiting 1 seconds 
     </output>
 </bubble>
+
 <bubble>
     <message>
-        Now it is the next thing...ygugyygtgttytf
+        TEST 3 yellow
     </message>
     <output>
-        AA: Whatever
+    AA: yellow turning on
+    AA: waiting 1 seconds
     </output>
 </bubble>
 `
@@ -132,15 +135,17 @@ function startNewBubble(){
     //OUTPUT ELEMENT 
     let startOutput = storeBubbles[bubbleIndex].search("<output>") + 8;
     let endOutput = storeBubbles[bubbleIndex].search("</output>");
+    output = "";
     while(startOutput < endOutput){
         output += storeBubbles[bubbleIndex][startOutput];
         startOutput +=1;
     }
-    console.log("MESSAGE: ", forceClear);
+    console.log("OUTPUT HERE!: ", output);
 }
 
 //GET OUTPUT
 export function getOutput(){
+    console.log("OUTPUT HERE!: ", output);
     return output;
 }
 
@@ -215,8 +220,7 @@ function display(){
                     text[0].append(arrow);
                     forceClear = true;
                     clearInterval(textAnimation);
-                }
-                console.log("START COUNT: ", startCount);
+                }        
                 startCount+=1;
             }
             //end animation when index reaches lenght of message

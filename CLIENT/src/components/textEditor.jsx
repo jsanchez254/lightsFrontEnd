@@ -16,6 +16,7 @@ import {getOutput, checkSucess} from "../assets/js/textAnimation";
 class textEditor extends Component {
     state = {
         output: "",
+        realOutput: "",
         outputPass: ""
     }
     
@@ -34,18 +35,24 @@ class textEditor extends Component {
         .then(res =>{
             axios.get( this.props.ip + "output")   //output
             .then(res => {
-                const output = res.data;
+                const realOutput = res.data;
+                let output = res.data;
                 let expectedOutPut = getOutput();
+
+                expectedOutPut = expectedOutPut.split(' ').join('');
+                output = output.split(' ').join('');
+                expectedOutPut = expectedOutPut.split('\n').join('');
+                output = output.split('\n').join('');
                 console.log("EXPECTED OUTPUT: ", expectedOutPut);
                 console.log("OUTPUT: ", res.data)
-                console.log(expectedOutPut.length, "===", output.length);        
-                if(expectedOutPut === output){
+                console.log(expectedOutPut, "===", output);        
+                if(expectedOutPut.replace(' ', '') === output.replace(' ', '')){
                     checkSucess(true);
                 }
                 else{
                     checkSucess(false);
                 }
-                this.setState({output});
+                this.setState({realOutput});
             })
         })
     }
@@ -89,7 +96,7 @@ class textEditor extends Component {
                         </Grid>
                     </div>
                 
-                    <textarea readOnly className = "console" type ="text" name = "comment" value={this.state.output}>
+                    <textarea readOnly className = "console" type ="text" name = "comment" value={this.state.realOutput}>
                         
                     </textarea>
                 </div>            
