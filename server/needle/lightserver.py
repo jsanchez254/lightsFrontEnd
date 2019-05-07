@@ -2,7 +2,7 @@
 from flask import Flask
 from flask import request
 import json
-# from light.py import Light
+from light.py import Light
 from flask_cors import CORS
 
 # === This stuff is needed for handling the execution of user code ===
@@ -82,7 +82,7 @@ def runcode():
             noImports = 1
         # Start up the process in a new thread
         else:
-            # code = "from light import *\n" + code
+            code = "from light import *\n" + code
             t = Thread(target=spawn, args=(code, userInput,))
             t.start()
 

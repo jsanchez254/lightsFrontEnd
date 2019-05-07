@@ -1,7 +1,15 @@
 // AA: red turning on
 // AA: waiting 5 seconds
 import yoshi from "../img/yoshi.gif";
+// var render = new FileReader();
+// render.onload = function(e) {
+//     var text = render.result;
+//     console.log(text);
+//   }
+// var wow = render.readAsText("./trafficlight_script.txt");
+// console.log("FILE READER TEST: ", wow);
 var words = 
+
 `<bubble>
     <message>
     Let's turn on the red light for 1 second. We can refer to each of the lights by name (red, yellow, green), and we can instruct each of them to turn on or off. We do this by adding the command to the name, like this:

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import AceEditor from 'react-ace';
 import axios from "axios";
 
@@ -31,7 +32,7 @@ class textEditor extends Component {
         console.log("HERE ",code.input);
         axios.post( this.props.ip + "run", {code})
         .then(res =>{
-            axios.get( this.props.ip + "testOutput")   //output
+            axios.get( this.props.ip + "output")   //output
             .then(res => {
                 const output = res.data;
                 let expectedOutPut = getOutput();
@@ -91,7 +92,8 @@ class textEditor extends Component {
                     <textarea readOnly className = "console" type ="text" name = "comment" value={this.state.output}>
                         
                     </textarea>
-                </div>
+                </div>            
+
             </React.Fragment>
           );
     }

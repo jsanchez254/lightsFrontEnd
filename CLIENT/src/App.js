@@ -13,7 +13,7 @@ import "./assets/css/character.css";
 
 class App extends Component {
   state = {
-    ip : "http://127.0.0.1:5000/"
+    ip : "http://0.0.0.0:5000/"
   }
   render() {
     return (
