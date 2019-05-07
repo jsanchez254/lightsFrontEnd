@@ -2,7 +2,7 @@
 from flask import Flask
 from flask import request
 import json
-from light.py import Light
+from light import Light
 from flask_cors import CORS
 
 # === This stuff is needed for handling the execution of user code ===
